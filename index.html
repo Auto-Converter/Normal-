@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Base64 Auto-Converter</title>
+
+<style>
+* { box-sizing: border-box; }
+html.dark-mode body {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+html.dark-mode .container {
+    background: #1e1e1e;
+}
+html.dark-mode textarea {
+    background: #2c2c2c; /* پس‌زمینه تیره */
+    color: #f5f5f5;     /* رنگ متن روشن */
+    border-color: #444; /* رنگ حاشیه تیره‌تر */
+}
+body {
+    margin: 0;
+    padding: 16px;
+    font-family: Tahoma, sans-serif;
+    background: #f4f4f9;
+    color: #222;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px #0002;
+    padding: 18px;
+}
+
+h2 {
+    margin: 0 0 18px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.field { margin-bottom: 16px; }
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.field-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #444;
+}
+
+.copy-btn {
+    border: 0;
+    border-radius: 10px;
+    background: #2d7ef7;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 13px;
+    transition: .2s;
+}
+
+.copy-btn:hover { background: #1f66d1; }
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+    resize: vertical;
+    border: 1px solid #d6d6d6;
+    border-radius: 14px;
+    padding: 14px;
+    font-size: 15px;
+    outline: 0;
+    background: #fafafa;
+}
+
+.status {
+    min-height: 24px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
+
+footer {
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+    margin-top: 18px;
+}
+
+/* --- استایل‌های راهنما --- */
+.help-btn {
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+  margin-bottom: 16px; /* کمی فاصله از محتوای اصلی */
+}
+
+.help-btn:hover {
+  background: #4338ca;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff;
+  color: #111827;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  direction: rtl;
+  text-align: right;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #f3f4f6;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: #e5e7eb;
+}
+
+.help-text p,
+.help-text li {
+  line-height: 1.9;
+  font-size: 14px;
+  color: #374151;
+}
+
+.help-text ol,
+.help-text ul {
+  padding-right: 20px;
+  margin: 10px 0 0;
+}
+
+@media(max-width:520px) {
+    textarea { min-height: 140px; font-size: 14px }
+    h2 { font-size: 20px }
+    .modal-content {
+      padding: 18px;
+      border-radius: 12px;
+    }
+    .help-btn {
+      width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h2>Base64 Auto-Converter</h2>
+
+    <!-- دکمه راهنما اضافه شد -->
+    <button id="helpBtn" class="help-btn" type="button">راهنما</button>
+
+    <div class="field">
+        <div class="label-row">
+            <div class="field-title">ورودی</div>
+            <button class="copy-btn" onclick="copyText('inputArea')">copy📋</button>
+        </div>
+        <textarea id="inputArea" placeholder="متن یا کد Base64 را اینجا پیست کنید..."></textarea>
+    </div>
+
+    <div class="field">
+        <div class="label-row">
+            <div class="field-title">خروجی</div>
+            <button class="copy-btn" onclick="copyText('outputArea')">copy📋</button>
+        </div>
+        <textarea id="outputArea" placeholder="نتیجه اینجا نمایش داده می‌شود..." readonly></textarea>
+    </div>
+
+    <div class="status" id="status"></div>
+    <footer>©️ 2026 | Designed by @JJDEVSPlus</footer>
+</div>
+
+<!-- پاپ‌آپ راهنما (modal) اضافه شد -->
+<div id="helpModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeHelpBtn" type="button" aria-label="بستن">×</button>
+    <h2>راهنمای استفاده</h2>
+    <div class="help-text">
+      <p><strong>این صفحه چیست؟</strong></p>
+      <p>این ابزار به‌صورت خودکار متن معمولی را به Base64 تبدیل می‌کند و اگر ورودی شما Base64 معتبر باشد، آن را به متن اصلی برمی‌گرداند.</p>
+
+      <p><strong>نحوه استفاده:</strong></p>
+      <ol>
+        <li>متن یا کد Base64 خود را در کادر «ورودی» وارد کنید.</li>
+        <li>ابزار به‌صورت خودکار نوع ورودی را تشخیص می‌دهد.</li>
+        <li>نتیجه در کادر «خروجی» نمایش داده می‌شود.</li>
+        <li>برای کپی کردن هر بخش، از دکمه‌های کپی استفاده کنید.</li>
+      </ol>
+
+      <p><strong>نکات:</strong></p>
+      <ul>
+        <li>اگر ورودی شما Base64 معتبر باشد، خروجی به متن فارسی/انگلیسی اصلی تبدیل می‌شود.</li>
+        <li>اگر ورودی متن عادی باشد، خروجی به Base64 تبدیل می‌شود.</li>
+        <li>در صورت خطا، پیام وضعیت پایین صفحه نمایش داده می‌شود.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+const input = document.getElementById("inputArea");
+const output = document.getElementById("outputArea");
+const statusBox = document.getElementById("status");
+let timer;
+
+// ---------- ابزارهای UTF-8 ایمن ----------
+const encodeBase64 = (str) => {
+    const bytes = new TextEncoder().encode(str);
+    return btoa(String.fromCharCode(...bytes));
+};
+
+const decodeBase64 = (b64) => {
+    const binary = atob(b64);
+    const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+    return new TextDecoder().decode(bytes);
+};
+
+// ---------- تشخیص معتبر بودن Base64 ----------
+const isValidBase64 = (str) => {
+    if (!/^[A-Za-z0-9+/=\s]+$/.test(str)) return false;
+    // Check for invalid padding or length issues common in Base64
+    if (str.length % 4 !== 0 && str.length % 4 !== 2) return false; // Length must be multiple of 4, or 2 if padding is missing/incorrectly handled
+    const padding = str.endsWith('==') ? 2 : (str.endsWith('=') ? 1 : 0);
+    if (padding > 0 && str.length < 4) return false; // Cannot have padding with less than 4 characters
+
+    try {
+        atob(str);
+        return true;
+    } catch (e) {
+        // console.error("Base64 decoding error:", e); // Optional: for debugging
+        return false;
+    }
+};
+
+// ---------- وضعیت ----------
+const showStatus = (msg) => {
+    statusBox.textContent = msg;
+    clearTimeout(timer);
+    timer = setTimeout(() => statusBox.textContent = "", 2500);
+};
+
+// ---------- پردازش خودکار ----------
+const autoProcess = () => {
+    const val = input.value.trim();
+    if (!val) {
+        output.value = "";
+        return;
+    }
+
+    if (isValidBase64(val)) {
+        try {
+            output.value = decodeBase64(val);
+            showStatus(" Base64 ➜ متن ✅");
+        } catch (e) {
+            output.value = "";
+            showStatus("خطا در Decode کردن!");
+            // console.error("Decode error:", e); // Optional: for debugging
+        }
+    } else {
+        try {
+            output.value = encodeBase64(val);
+            showStatus(" متن ➜ Base64 ✅");
+        } catch (e) {
+            output.value = "";
+            showStatus("خطا در Encode کردن!");
+            // console.error("Encode error:", e); // Optional: for debugging
+        }
+    }
+};
+
+input.addEventListener("input", autoProcess);
+
+// ---------- کپی ----------
+const copyText = async (id) => {
+    const el = document.getElementById(id);
+    if (!el.value) {
+        showStatus("چیزی برای کپی وجود ندارد.");
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(el.value);
+        showStatus("کپی شد ✅");
+    } catch (err) {
+        console.error("Clipboard API not available or failed:", err);
+        // Fallback for older browsers
+        try {
+            el.select();
+            document.execCommand("copy");
+            showStatus("کپی شد ✅ (Fallback)");
+        } catch (execErr) {
+            console.error("Fallback copy command failed:", execErr);
+            showStatus("کپی ناموفق بود.");
+        }
+    }
+};
+
+// ---------- جاوا اسکریپت پاپ‌آپ راهنما ---
+const helpBtn = document.getElementById('helpBtn');
+const helpModal = document.getElementById('helpModal');
+const closeHelpBtn = document.getElementById('closeHelpBtn');
+
+helpBtn.addEventListener('click', () => {
+  helpModal.classList.add('show');
+});
+
+closeHelpBtn.addEventListener('click', () => {
+  helpModal.classList.remove('show');
+});
+
+helpModal.addEventListener('click', (e) => {
+  // Close modal if the click is outside the modal content
+  if (e.target === helpModal) {
+    helpModal.classList.remove('show');
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  // Close modal if Escape key is pressed and modal is visible
+  if (e.key === 'Escape' && helpModal.classList.contains('show')) {
+    helpModal.classList.remove('show');
+  }
+});
+
+// ---------- تنظیم اولیه ---
+// برای اطمینان از اینکه صفحه با مقدار اولیه درست پردازش می‌شود
+// autoProcess(); // این خط را کامنت کردم چون صفحه خالی است و autoProcess باعث نمایش متن placeholder در خروجی می شود.
+const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
+function applyTheme() {
+    if (prefersDarkMode.matches) {
+        document.documentElement.classList.add('dark-mode');
+    } else {
+        document.documentElement.classList.remove('dark-mode');
+    }
+}
+
+applyTheme();
+prefersDarkMode.addEventListener('change', applyTheme);
+
+</script>
+</body>
+</html>
