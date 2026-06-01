@@ -3,23 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Base64 Auto-Converter</title>
-
+<title>Auto-Converter Pro</title>
 <style>
 * { box-sizing: border-box; }
-html.dark-mode body {
-    background: #121212;
-    color: #e0e0e0;
-}
 
-html.dark-mode .container {
-    background: #1e1e1e;
-}
-html.dark-mode textarea {
-    background: #2c2c2c; /* پس‌زمینه تیره */
-    color: #f5f5f5;     /* رنگ متن روشن */
-    border-color: #444; /* رنگ حاشیه تیره‌تر */
-}
 body {
     margin: 0;
     padding: 16px;
@@ -99,109 +86,122 @@ footer {
     margin-top: 18px;
 }
 
-/* --- استایل‌های راهنما --- */
-.help-btn {
-  background: #4f46e5;
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s ease;
-  margin-bottom: 16px; /* کمی فاصله از محتوای اصلی */
+.logout-button-day {
+    padding: 12px 25px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.help-btn:hover {
-  background: #4338ca;
+.logout-button-day:hover {
+    background-color: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4);
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.modal-content {
-  background: #fff;
-  color: #111827;
-  width: 100%;
-  max-width: 520px;
-  border-radius: 16px;
-  padding: 24px;
-  position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  direction: rtl;
-  text-align: right;
-}
-
-.modal-content h2 {
-  margin-top: 0;
-  font-size: 20px;
-  margin-bottom: 16px;
-}
-
-.modal-close {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  background: #f3f4f6;
-  cursor: pointer;
-  font-size: 22px;
-  line-height: 1;
-}
-
-.modal-close:hover {
-  background: #e5e7eb;
-}
-
-.help-text p,
-.help-text li {
-  line-height: 1.9;
-  font-size: 14px;
-  color: #374151;
-}
-
-.help-text ol,
-.help-text ul {
-  padding-right: 20px;
-  margin: 10px 0 0;
+@media (max-width: 600px) {
+    .logout-button-day {
+        position: fixed;
+        top: 8px;
+        right: 8px;
+        left: auto;
+        width: auto;
+        padding: 6px 10px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
 }
 
 @media(max-width:520px) {
     textarea { min-height: 140px; font-size: 14px }
     h2 { font-size: 20px }
-    .modal-content {
-      padding: 18px;
-      border-radius: 12px;
+}
+
+body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background: #1e1e1e;
+    box-shadow: 0 6px 20px #0005;
+}
+
+body.dark-mode h2 {
+    color: #ffffff;
+}
+
+body.dark-mode .field-title {
+    color: #bbb;
+}
+
+body.dark-mode .copy-btn {
+    background: #4a90e2;
+}
+
+body.dark-mode .copy-btn:hover {
+    background: #357abd;
+}
+
+body.dark-mode textarea {
+    border: 1px solid #444;
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .status {
+    color: #aaa;
+}
+
+body.dark-mode footer {
+    color: #777;
+}
+
+body.dark-mode .logout-button-day {
+    background-color: #e53e3e;
+    box-shadow: 0 4px 6px rgba(200, 0, 0, 0.2);
+}
+
+body.dark-mode .logout-button-day:hover {
+    background-color: #c53030;
+    box-shadow: 0 6px 15px rgba(175, 20, 20, 0.4);
+}
+
+@media (max-width: 600px) and (prefers-color-scheme: dark) {
+    body:not(.dark-mode) .logout-button-day {
     }
-    .help-btn {
-      width: 100%;
+    body.dark-mode .logout-button-day {
+        position: fixed;
+        top: 8px;
+        right: 8px;
+        left: auto;
+        width: auto;
+        padding: 6px 10px;
+        font-size: 12px;
+        border-radius: 8px;
+        background-color: #e53e3e;
+        box-shadow: 0 4px 6px rgba(200, 0, 0, 0.2);
+    }
+    body.dark-mode .logout-button-day:hover {
+        background-color: #c53030;
+        box-shadow: 0 6px 15px rgba(175, 20, 20, 0.4);
     }
 }
+
 </style>
 </head>
 
 <body>
 <div class="container">
-    <h2>Base64 Auto-Converter</h2>
-
-    <!-- دکمه راهنما اضافه شد -->
-    <button id="helpBtn" class="help-btn" type="button">راهنما</button>
-
+    <h2>Auto-Converter Pro</h2>
+<button id="logoutBtn" class="copy-btn">
+خروج
+</button>
     <div class="field">
         <div class="label-row">
             <div class="field-title">ورودی</div>
@@ -222,174 +222,423 @@ footer {
     <footer>©️ 2026 | Designed by @JJDEVSPlus</footer>
 </div>
 
-<!-- پاپ‌آپ راهنما (modal) اضافه شد -->
-<div id="helpModal" class="modal">
-  <div class="modal-content">
-    <button class="modal-close" id="closeHelpBtn" type="button" aria-label="بستن">×</button>
-    <h2>راهنمای استفاده</h2>
-    <div class="help-text">
-      <p><strong>این صفحه چیست؟</strong></p>
-      <p>این ابزار به‌صورت خودکار متن معمولی را به Base64 تبدیل می‌کند و اگر ورودی شما Base64 معتبر باشد، آن را به متن اصلی برمی‌گرداند.</p>
 
-      <p><strong>نحوه استفاده:</strong></p>
-      <ol>
-        <li>متن یا کد Base64 خود را در کادر «ورودی» وارد کنید.</li>
-        <li>ابزار به‌صورت خودکار نوع ورودی را تشخیص می‌دهد.</li>
-        <li>نتیجه در کادر «خروجی» نمایش داده می‌شود.</li>
-        <li>برای کپی کردن هر بخش، از دکمه‌های کپی استفاده کنید.</li>
-      </ol>
+<script type="module">
+<!-- Matomo -->
 
-      <p><strong>نکات:</strong></p>
-      <ul>
-        <li>اگر ورودی شما Base64 معتبر باشد، خروجی به متن فارسی/انگلیسی اصلی تبدیل می‌شود.</li>
-        <li>اگر ورودی متن عادی باشد، خروجی به Base64 تبدیل می‌شود.</li>
-        <li>در صورت خطا، پیام وضعیت پایین صفحه نمایش داده می‌شود.</li>
-      </ul>
-    </div>
-  </div>
-</div>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://auto-converter.matomo.cloud/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src='https://cdn.matomo.cloud/auto-converter.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
 
-<script>
-const input = document.getElementById("inputArea");
-const output = document.getElementById("outputArea");
-const statusBox = document.getElementById("status");
-let timer;
 
-// ---------- ابزارهای UTF-8 ایمن ----------
-const encodeBase64 = (str) => {
-    const bytes = new TextEncoder().encode(str);
-    return btoa(String.fromCharCode(...bytes));
-};
 
-const decodeBase64 = (b64) => {
-    const binary = atob(b64);
-    const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
-    return new TextDecoder().decode(bytes);
-};
+import { createClient }
+from 'https://esm.sh/@supabase/supabase-js'
 
-// ---------- تشخیص معتبر بودن Base64 ----------
-const isValidBase64 = (str) => {
-    if (!/^[A-Za-z0-9+/=\s]+$/.test(str)) return false;
-    // Check for invalid padding or length issues common in Base64
-    if (str.length % 4 !== 0 && str.length % 4 !== 2) return false; // Length must be multiple of 4, or 2 if padding is missing/incorrectly handled
-    const padding = str.endsWith('==') ? 2 : (str.endsWith('=') ? 1 : 0);
-    if (padding > 0 && str.length < 4) return false; // Cannot have padding with less than 4 characters
+const supabase = createClient(
+'https://limcghwlfnshaejvvpwp.supabase.co',
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpbWNnaHdsZm5zaGFlanZ2cHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxMjUwNDYsImV4cCI6MjA5NTcwMTA0Nn0.KBVRRWy_BanYoSnidE_z1-DOMQf0-V6HNsIqsuEN3iI'
+)
 
-    try {
-        atob(str);
-        return true;
-    } catch (e) {
-        // console.error("Base64 decoding error:", e); // Optional: for debugging
-        return false;
+window.supabase = supabase
+
+const SECRET_KEY_STR =
+"MySecretKey123"
+
+let saveTimer = null
+
+async function logout(){
+
+    await supabase.auth.signOut()
+
+    location.href =
+    "login.html"
+}
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+    const logoutBtn =
+    document.getElementById(
+    "logoutBtn"
+    )
+
+    if(logoutBtn){
+
+        logoutBtn.addEventListener(
+        "click",
+        logout
+        )
     }
-};
+})
 
-// ---------- وضعیت ----------
-const showStatus = (msg) => {
-    statusBox.textContent = msg;
-    clearTimeout(timer);
-    timer = setTimeout(() => statusBox.textContent = "", 2500);
-};
+async function checkAuth(){
 
-// ---------- پردازش خودکار ----------
-const autoProcess = () => {
-    const val = input.value.trim();
-    if (!val) {
-        output.value = "";
-        return;
+    const {
+      data:{user}
+    } = await supabase
+    .auth
+    .getUser()
+
+    if(!user){
+
+        location.href =
+        "login.html"
+
+        return
     }
 
-    if (isValidBase64(val)) {
-        try {
-            output.value = decodeBase64(val);
-            showStatus(" Base64 ➜ متن ✅");
-        } catch (e) {
-            output.value = "";
-            showStatus("خطا در Decode کردن!");
-            // console.error("Decode error:", e); // Optional: for debugging
-        }
-    } else {
-        try {
-            output.value = encodeBase64(val);
-            showStatus(" متن ➜ Base64 ✅");
-        } catch (e) {
-            output.value = "";
-            showStatus("خطا در Encode کردن!");
-            // console.error("Encode error:", e); // Optional: for debugging
-        }
-    }
-};
+    const { data:profile } =
+    await supabase
+    .from("profiles")
+    .select(
+    "is_banned,username"
+    )
+    .eq(
+    "id",
+    user.id
+    )
+    .single()
 
-input.addEventListener("input", autoProcess);
+    if(!profile){
 
-// ---------- کپی ----------
-const copyText = async (id) => {
-    const el = document.getElementById(id);
-    if (!el.value) {
-        showStatus("چیزی برای کپی وجود ندارد.");
-        return;
+        location.href =
+        "error.html"
+
+        return
     }
 
-    try {
-        await navigator.clipboard.writeText(el.value);
-        showStatus("کپی شد ✅");
-    } catch (err) {
-        console.error("Clipboard API not available or failed:", err);
-        // Fallback for older browsers
-        try {
-            el.select();
-            document.execCommand("copy");
-            showStatus("کپی شد ✅ (Fallback)");
-        } catch (execErr) {
-            console.error("Fallback copy command failed:", execErr);
-            showStatus("کپی ناموفق بود.");
-        }
+    if(profile.is_banned){
+
+        await supabase
+        .auth
+        .signOut()
+
+        location.href =
+        "errorblock.html"
+
+        return
     }
-};
 
-// ---------- جاوا اسکریپت پاپ‌آپ راهنما ---
-const helpBtn = document.getElementById('helpBtn');
-const helpModal = document.getElementById('helpModal');
-const closeHelpBtn = document.getElementById('closeHelpBtn');
+    if(!profile.username){
 
-helpBtn.addEventListener('click', () => {
-  helpModal.classList.add('show');
-});
+        location.href =
+        "setup-profile.html"
 
-closeHelpBtn.addEventListener('click', () => {
-  helpModal.classList.remove('show');
-});
-
-helpModal.addEventListener('click', (e) => {
-  // Close modal if the click is outside the modal content
-  if (e.target === helpModal) {
-    helpModal.classList.remove('show');
-  }
-});
-
-document.addEventListener('keydown', (e) => {
-  // Close modal if Escape key is pressed and modal is visible
-  if (e.key === 'Escape' && helpModal.classList.contains('show')) {
-    helpModal.classList.remove('show');
-  }
-});
-
-// ---------- تنظیم اولیه ---
-// برای اطمینان از اینکه صفحه با مقدار اولیه درست پردازش می‌شود
-// autoProcess(); // این خط را کامنت کردم چون صفحه خالی است و autoProcess باعث نمایش متن placeholder در خروجی می شود.
-const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-
-function applyTheme() {
-    if (prefersDarkMode.matches) {
-        document.documentElement.classList.add('dark-mode');
-    } else {
-        document.documentElement.classList.remove('dark-mode');
+        return
     }
 }
 
-applyTheme();
-prefersDarkMode.addEventListener('change', applyTheme);
+checkAuth()
+
+async function getCryptoKey(){
+
+    const encoder =
+    new TextEncoder()
+
+    const keyData =
+    encoder.encode(
+    SECRET_KEY_STR
+    )
+
+    const hash =
+    await crypto.subtle.digest(
+    "SHA-256",
+    keyData
+    )
+
+    return crypto.subtle.importKey(
+        "raw",
+        hash,
+        { name:"AES-GCM" },
+        false,
+        [
+          "encrypt",
+          "decrypt"
+        ]
+    )
+}
+
+async function processData(
+text,
+mode
+){
+
+    const key =
+    await getCryptoKey()
+
+    if(
+      mode==="encrypt"
+    ){
+
+        const stream =
+        new Blob([text])
+        .stream()
+        .pipeThrough(
+        new CompressionStream(
+        "gzip"
+        ))
+
+        const compressed =
+        await new Response(
+        stream
+        ).arrayBuffer()
+
+        const iv =
+        crypto.getRandomValues(
+        new Uint8Array(12)
+        )
+
+        const encrypted =
+        await crypto.subtle.encrypt(
+        {
+          name:"AES-GCM",
+          iv
+        },
+        key,
+        compressed
+        )
+
+        const combined =
+        new Uint8Array(
+        iv.length +
+        encrypted.byteLength
+        )
+
+        combined.set(iv)
+
+        combined.set(
+        new Uint8Array(
+        encrypted
+        ),
+        iv.length
+        )
+
+        return btoa(
+        String.fromCharCode(
+        ...combined
+        )
+        )
+
+    }else{
+
+        const data =
+        Uint8Array.from(
+        atob(text),
+        c=>c.charCodeAt(0)
+        )
+
+        const iv =
+        data.slice(0,12)
+
+        const encryptedData =
+        data.slice(12)
+
+        const decrypted =
+        await crypto.subtle.decrypt(
+        {
+          name:"AES-GCM",
+          iv
+        },
+        key,
+        encryptedData
+        )
+
+        const stream =
+        new Blob([decrypted])
+        .stream()
+        .pipeThrough(
+        new DecompressionStream(
+        "gzip"
+        ))
+
+        return await new Response(
+        stream
+        ).text()
+    }
+}
+
+window.copyText =
+async function(id){
+
+    const el =
+    document.getElementById(id)
+
+    const statusBox =
+    document.getElementById(
+    "status"
+    )
+
+    if(!el) return
+
+    try{
+
+        await navigator
+        .clipboard
+        .writeText(
+        el.value
+        )
+
+        statusBox.textContent =
+        "کپی شد ✅"
+
+    }catch{
+
+        el.select()
+
+        document.execCommand(
+        "copy"
+        )
+
+        statusBox.textContent =
+        "کپی شد ✅"
+    }
+
+    setTimeout(()=>{
+
+        statusBox.textContent=""
+
+    },2000)
+}
+
+async function saveTranslation(
+text
+){
+
+    const {
+      data:{user}
+    } = await supabase
+    .auth
+    .getUser()
+
+    if(!user) return
+
+    await supabase
+    .from(
+    "translations"
+    )
+    .insert({
+
+      user_id:user.id,
+
+      text_content:text
+
+    })
+}
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+    const input =
+    document.getElementById(
+    "inputArea"
+    )
+
+    const output =
+    document.getElementById(
+    "outputArea"
+    )
+
+    const statusBox =
+    document.getElementById(
+    "status"
+    )
+
+    if(!input) return
+
+    input.addEventListener(
+    "input",
+    async ()=>{
+
+        const val =
+        input.value.trim()
+
+        if(!val){
+
+            output.value = ""
+
+            return
+        }
+
+        try{
+
+            let readableText
+
+            if(
+                val.length > 20 &&
+                !/[^A-Za-z0-9+/=]/.test(
+                val
+                )
+            ){
+
+                const decodedText =
+                await processData(
+                val,
+                "decrypt"
+                )
+
+                output.value =
+                decodedText
+
+                readableText =
+                decodedText
+
+                statusBox.textContent =
+                "رمزگشایی شد ✅"
+
+            }else{
+
+                const encodedText =
+                await processData(
+                val,
+                "encrypt"
+                )
+
+                output.value =
+                encodedText
+
+                readableText =
+                val
+
+                statusBox.textContent =
+                "فشرده و رمزگذاری شد ✅"
+            }
+
+            clearTimeout(
+            saveTimer
+            )
+
+            saveTimer =
+            setTimeout(
+            async ()=>{
+
+                await saveTranslation(
+                readableText
+                )
+
+            },
+            3000
+            )
+
+        }catch{
+
+            statusBox.textContent =
+            "خطا در پردازش!"
+        }
+    })
+})
 
 </script>
+
 </body>
 </html>
