@@ -7,19 +7,22 @@
 
 <style>
 * { box-sizing: border-box; }
+
+/* Dark Mode */
 html.dark-mode body {
     background: #121212;
     color: #e0e0e0;
 }
-
 html.dark-mode .container {
     background: #1e1e1e;
 }
 html.dark-mode textarea {
-    background: #2c2c2c; /* پس‌زمینه تیره */
-    color: #f5f5f5;     /* رنگ متن روشن */
-    border-color: #444; /* رنگ حاشیه تیره‌تر */
+    background: #2c2c2c;
+    color: #f5f5f5;
+    border-color: #444;
 }
+
+/* Base Styles */
 body {
     margin: 0;
     padding: 16px;
@@ -27,7 +30,6 @@ body {
     background: #f4f4f9;
     color: #222;
 }
-
 .container {
     max-width: 700px;
     margin: auto;
@@ -36,161 +38,109 @@ body {
     box-shadow: 0 6px 20px #0002;
     padding: 18px;
 }
-
-h2 {
-    margin: 0 0 18px;
-    text-align: center;
-    font-size: 22px;
-}
-
+h2 { margin:0 0 18px; text-align:center; font-size:22px; }
 .field { margin-bottom: 16px; }
-
-.label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-}
-
-.field-title {
-    font-weight: 700;
-    font-size: 14px;
-    color: #444;
-}
-
-.copy-btn {
-    border: 0;
-    border-radius: 10px;
-    background: #2d7ef7;
-    color: #fff;
-    cursor: pointer;
-    padding: 8px 12px;
-    font-size: 13px;
-    transition: .2s;
-}
-
-.copy-btn:hover { background: #1f66d1; }
-
+.label-row { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; }
+.field-title { font-weight:700; font-size:14px; color:#444; }
+.copy-btn { border:0; border-radius:10px; background:#2d7ef7; color:#fff; cursor:pointer; padding:8px 12px; font-size:13px; transition:.2s; }
+.copy-btn\:hover { background:#1f66d1; }
 textarea {
-    width: 100%;
-    min-height: 150px;
-    resize: vertical;
-    border: 1px solid #d6d6d6;
-    border-radius: 14px;
-    padding: 14px;
-    font-size: 15px;
-    outline: 0;
-    background: #fafafa;
+    width:100%; min-height:150px; resize:vertical; border:1px solid #d6d6d6; border-radius:14px;
+    padding:14px; font-size:15px; outline:0; background:#fafafa;
 }
+.status { min-height:24px; margin-top:10px; text-align:center; font-size:14px; color:#555; }
+footer { text-align:center; font-size:13px; color:#777; margin-top:18px; }
 
-.status {
-    min-height: 24px;
-    margin-top: 10px;
-    text-align: center;
-    font-size: 14px;
-    color: #555;
-}
-
-footer {
-    text-align: center;
-    font-size: 13px;
-    color: #777;
-    margin-top: 18px;
-}
-
-/* --- استایل‌های راهنما --- */
+/* Help Button & Modal */
 .help-btn {
-  background: #4f46e5;
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s ease;
-  margin-bottom: 16px; /* کمی فاصله از محتوای اصلی */
+    background: #4f46e5; color:#fff; border:none; padding:10px 16px; border-radius:8px;
+    cursor:pointer; font-size:14px; transition:0.2s ease; margin-bottom:16px;
 }
-
-.help-btn:hover {
-  background: #4338ca;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal.show {
-  display: flex;
-}
-
+.help-btn\:hover { background:#4338ca; }
+.modal { display:none; position:fixed; z-index:9999; inset:0; background:rgba(0,0,0,0.55);
+    align-items:center; justify-content:center; padding:20px; }
+.modal.show { display:flex; }
 .modal-content {
-  background: #fff;
-  color: #111827;
-  width: 100%;
-  max-width: 520px;
-  border-radius: 16px;
-  padding: 24px;
-  position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  direction: rtl;
-  text-align: right;
+    background:#fff; color:#111827; width:100%; max-width:520px; border-radius:16px;
+    padding:24px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.25);
+    direction:rtl; text-align:right;
+}
+.modal-content h2 { margin-top:0; font-size:20px; margin-bottom:16px; }
+.modal-close { position:absolute; top:12px; left:12px; width:36px; height:36px;
+    border:none; border-radius:50%; background:#f3f4f6; cursor:pointer; font-size:22px; line-height:1; }
+.modal-close\:hover { background:#e5e7eb; }
+.help-text p, .help-text li { line-height:1.9; font-size:14px; color:#374151; }
+.help-text ol, .help-text ul { padding-right:20px; margin:10px 0 0; }
+
+/* Responsive */
+@media(max-width:520px){
+    textarea { min-height:140px; font-size:14px }
+    h2 { font-size:20px }
+    .modal-content { padding:18px; border-radius:12px; }
+    .help-btn { width:100%; }
 }
 
-.modal-content h2 {
-  margin-top: 0;
-  font-size: 20px;
-  margin-bottom: 16px;
+/* ---------- Vibrant Sticky Promo Banner ---------- */
+.promo-banner-sticky{
+    position:fixed;
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:9999;
+    width:calc(100% - 24px);
+    max-width:700px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    border-radius:16px;
+    color:#fff;
+    box-shadow:0 8px 30px rgba(0,0,0,.3);
+    flex-wrap:wrap;
+    transition: transform .2s ease, box-shadow .2s ease;
 }
-
-.modal-close {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  background: #f3f4f6;
-  cursor: pointer;
-  font-size: 22px;
-  line-height: 1;
+.promo-banner-sticky:hover{
+    transform:translateX(-50%) translateY(-2px);
+    box-shadow:0 12px 40px rgba(0,0,0,.35);
 }
-
-.modal-close:hover {
-  background: #e5e7eb;
+.promo-content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
 }
-
-.help-text p,
-.help-text li {
-  line-height: 1.9;
-  font-size: 14px;
-  color: #374151;
+.promo-content strong{ font-size:15px; }
+.promo-content span{ font-size:13px; opacity:.95; }
+.promo-banner-sticky a{
+    text-decoration:none; font-weight:700; padding:10px 18px; border-radius:12px; white-space:nowrap;
+    transition:.2s ease;
 }
-
-.help-text ol,
-.help-text ul {
-  padding-right: 20px;
-  margin: 10px 0 0;
+.promo-banner-sticky a:hover{ transform:translateY(-2px); opacity:.9; }
+.close-promo{
+    margin-right:auto; width:32px; height:32px; border:none; border-radius:50%; cursor:pointer;
+    background:rgba(255,255,255,.25); color:#fff; font-size:18px; transition:.2s ease;
 }
+.close-promo:hover{ background:rgba(255,255,255,.5); }
 
-@media(max-width:520px) {
-    textarea { min-height: 140px; font-size: 14px }
-    h2 { font-size: 20px }
-    .modal-content {
-      padding: 18px;
-      border-radius: 12px;
+/* 5 Vibrant Styles */
+.promo-style-1{ background:linear-gradient(135deg,#ff416c,#ff4b2b); }
+.promo-style-1 a{background:#fff; color:#ff416c;}
+.promo-style-2{ background:linear-gradient(135deg,#1fa2ff,#12d8fa); }
+.promo-style-2 a{background:#fff; color:#1fa2ff;}
+.promo-style-3{ background:linear-gradient(135deg,#f7971e,#ffd200); }
+.promo-style-3 a{background:#fff; color:#f7971e;}
+.promo-style-4{ background:linear-gradient(135deg,#0fd850,#f9f047); }
+.promo-style-4 a{background:#fff; color:#0fd850;}
+.promo-style-5{ background:linear-gradient(135deg,#ee0979,#ff6a00); }
+.promo-style-5 a{background:#fff; color:#ee0979;}
+
+/* موبایل */
+@media(max-width:600px){
+    .promo-banner-sticky{
+        flex-direction:column; align-items:stretch; text-align:center; bottom:10px; width:calc(100% - 20px); gap:10px;
     }
-    .help-btn {
-      width: 100%;
-    }
+    .promo-banner-sticky a{text-align:center;}
+    .close-promo{ position:absolute; top:8px; left:8px; margin:0; }
 }
 </style>
 </head>
@@ -198,8 +148,6 @@ footer {
 <body>
 <div class="container">
     <h2>Base64 Auto-Converter</h2>
-
-    <!-- دکمه راهنما اضافه شد -->
     <button id="helpBtn" class="help-btn" type="button">راهنما</button>
 
     <div class="field">
@@ -222,7 +170,7 @@ footer {
     <footer>©️ 2026 | Designed by @NotFound40445</footer>
 </div>
 
-<!-- پاپ‌آپ راهنما (modal) اضافه شد -->
+<!-- Help Modal -->
 <div id="helpModal" class="modal">
   <div class="modal-content">
     <button class="modal-close" id="closeHelpBtn" type="button" aria-label="بستن">×</button>
@@ -249,28 +197,23 @@ footer {
   </div>
 </div>
 
+<!-- Vibrant Sticky Promo Banner -->
+<div id="promoBanner" class="promo-banner-sticky">
+    <button id="closePromoBtn" class="close-promo" aria-label="بستن">×</button>
+    <div class="promo-content">
+        <strong>🚀 Auto-Converter Pro</strong>
+        <span>رمزگذاری قوی تر و طول رشته کم تر!</span>
+    </div>
+    <a href="https://auto-converter.github.io/Pro-/login.html" target="_blank" rel="noopener">مشاهده</a>
+</div>
+
 <script>
-<!-- Matomo -->
-
-  var _paq = window._paq = window._paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="https://auto-converter.matomo.cloud/";
-    _paq.push(['setTrackerUrl', u+'matomo.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.async=true; g.src='https://cdn.matomo.cloud/auto-converter.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
-  })();
-
-
+// ---------- Base64 Encode/Decode ----------
 const input = document.getElementById("inputArea");
 const output = document.getElementById("outputArea");
 const statusBox = document.getElementById("status");
 let timer;
 
-// ---------- ابزارهای UTF-8 ایمن ----------
 const encodeBase64 = (str) => {
     const bytes = new TextEncoder().encode(str);
     return btoa(String.fromCharCode(...bytes));
@@ -282,129 +225,61 @@ const decodeBase64 = (b64) => {
     return new TextDecoder().decode(bytes);
 };
 
-// ---------- تشخیص معتبر بودن Base64 ----------
 const isValidBase64 = (str) => {
     if (!/^[A-Za-z0-9+/=\s]+$/.test(str)) return false;
-    // Check for invalid padding or length issues common in Base64
-    if (str.length % 4 !== 0 && str.length % 4 !== 2) return false; // Length must be multiple of 4, or 2 if padding is missing/incorrectly handled
-    const padding = str.endsWith('==') ? 2 : (str.endsWith('=') ? 1 : 0);
-    if (padding > 0 && str.length < 4) return false; // Cannot have padding with less than 4 characters
-
-    try {
-        atob(str);
-        return true;
-    } catch (e) {
-        // console.error("Base64 decoding error:", e); // Optional: for debugging
-        return false;
-    }
+    if (str.length % 4 !== 0 && str.length % 4 !== 2) return false;
+    try { atob(str); return true; } catch(e){ return false; }
 };
 
-// ---------- وضعیت ----------
 const showStatus = (msg) => {
     statusBox.textContent = msg;
     clearTimeout(timer);
     timer = setTimeout(() => statusBox.textContent = "", 2500);
 };
 
-// ---------- پردازش خودکار ----------
 const autoProcess = () => {
     const val = input.value.trim();
-    if (!val) {
-        output.value = "";
-        return;
-    }
-
+    if (!val) { output.value = ""; return; }
     if (isValidBase64(val)) {
-        try {
-            output.value = decodeBase64(val);
-            showStatus(" Base64 ➜ متن ✅");
-        } catch (e) {
-            output.value = "";
-            showStatus("خطا در Decode کردن!");
-            // console.error("Decode error:", e); // Optional: for debugging
-        }
+        try { output.value = decodeBase64(val); showStatus(" Base64 ➜ متن ✅"); }
+        catch(e){ output.value=""; showStatus("خطا در Decode کردن!"); }
     } else {
-        try {
-            output.value = encodeBase64(val);
-            showStatus(" متن ➜ Base64 ✅");
-        } catch (e) {
-            output.value = "";
-            showStatus("خطا در Encode کردن!");
-            // console.error("Encode error:", e); // Optional: for debugging
-        }
+        try { output.value = encodeBase64(val); showStatus(" متن ➜ Base64 ✅"); }
+        catch(e){ output.value=""; showStatus("خطا در Encode کردن!"); }
     }
 };
-
 input.addEventListener("input", autoProcess);
 
-// ---------- کپی ----------
+// Copy
 const copyText = async (id) => {
     const el = document.getElementById(id);
-    if (!el.value) {
-        showStatus("چیزی برای کپی وجود ندارد.");
-        return;
-    }
-
-    try {
-        await navigator.clipboard.writeText(el.value);
-        showStatus("کپی شد ✅");
-    } catch (err) {
-        console.error("Clipboard API not available or failed:", err);
-        // Fallback for older browsers
-        try {
-            el.select();
-            document.execCommand("copy");
-            showStatus("کپی شد ✅ (Fallback)");
-        } catch (execErr) {
-            console.error("Fallback copy command failed:", execErr);
-            showStatus("کپی ناموفق بود.");
-        }
-    }
+    if (!el.value) { showStatus("چیزی برای کپی وجود ندارد."); return; }
+    try { await navigator.clipboard.writeText(el.value); showStatus("کپی شد ✅"); }
+    catch(err){ el.select(); document.execCommand("copy"); showStatus("کپی شد ✅ (Fallback)"); }
 };
 
-// ---------- جاوا اسکریپت پاپ‌آپ راهنما ---
+// Help Modal
 const helpBtn = document.getElementById('helpBtn');
 const helpModal = document.getElementById('helpModal');
 const closeHelpBtn = document.getElementById('closeHelpBtn');
 
-helpBtn.addEventListener('click', () => {
-  helpModal.classList.add('show');
-});
+helpBtn.addEventListener('click', ()=> helpModal.classList.add('show'));
+closeHelpBtn.addEventListener('click', ()=> helpModal.classList.remove('show'));
+helpModal.addEventListener('click', e=> { if(e.target===helpModal) helpModal.classList.remove('show'); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && helpModal.classList.contains('show')) helpModal.classList.remove('show'); });
 
-closeHelpBtn.addEventListener('click', () => {
-  helpModal.classList.remove('show');
-});
-
-helpModal.addEventListener('click', (e) => {
-  // Close modal if the click is outside the modal content
-  if (e.target === helpModal) {
-    helpModal.classList.remove('show');
-  }
-});
-
-document.addEventListener('keydown', (e) => {
-  // Close modal if Escape key is pressed and modal is visible
-  if (e.key === 'Escape' && helpModal.classList.contains('show')) {
-    helpModal.classList.remove('show');
-  }
-});
-
-// ---------- تنظیم اولیه ---
-// برای اطمینان از اینکه صفحه با مقدار اولیه درست پردازش می‌شود
-// autoProcess(); // این خط را کامنت کردم چون صفحه خالی است و autoProcess باعث نمایش متن placeholder در خروجی می شود.
+// Dark Mode
 const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+function applyTheme(){ if(prefersDarkMode.matches) document.documentElement.classList.add('dark-mode'); else document.documentElement.classList.remove('dark-mode'); }
+applyTheme(); prefersDarkMode.addEventListener('change', applyTheme);
 
-function applyTheme() {
-    if (prefersDarkMode.matches) {
-        document.documentElement.classList.add('dark-mode');
-    } else {
-        document.documentElement.classList.remove('dark-mode');
-    }
-}
-
-applyTheme();
-prefersDarkMode.addEventListener('change', applyTheme);
-
+// ---------- Vibrant Promo Banner ----------
+const promoBanner = document.getElementById('promoBanner');
+const closePromoBtn = document.getElementById('closePromoBtn');
+const promoStyles = ['promo-style-1','promo-style-2','promo-style-3','promo-style-4','promo-style-5'];
+const randomStyle = promoStyles[Math.floor(Math.random()*promoStyles.length)];
+promoBanner.classList.add(randomStyle);
+closePromoBtn.addEventListener('click', ()=>{ promoBanner.style.display='none'; });
 </script>
 </body>
 </html>
